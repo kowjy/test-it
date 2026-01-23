@@ -1,4 +1,4 @@
-package service;
+package com.example.testit.service;
 
 import com.example.testit.adapter.mail.MailService;
 import com.example.testit.model.Task;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Optional;
+import java.util.Optional;import static org.mockito.ArgumentMatchers.any;
 
 class TaskServiceTest {
 
@@ -49,6 +49,8 @@ class TaskServiceTest {
 
         Assertions.assertThat(userAssigned.getId()).isEqualTo(assigned);
         Assertions.assertThat(userRequest.getId()).isEqualTo(request);
+
+        Mockito.verify(taskRepository).save(any());
     }
 
     @Test
