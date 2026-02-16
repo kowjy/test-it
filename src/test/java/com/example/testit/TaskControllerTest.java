@@ -73,7 +73,7 @@ class TaskControllerTest {
 
     @Test
     void getTasksByUser_shouldReturnUserTasks() throws Exception {
-        mockMvc.perform(get("/tasks/user/{userId}", userId))
+        mockMvc.perform(get("/tasks/user/{userId}", userId).header("Authorization", "Basic dGVzdHVzZXI6cHdk"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
