@@ -42,7 +42,7 @@ class TaskServiceTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("testuser");
+        user = new User("testuser","test");
         user.setId(1L);
         task = new Task("Test Task", "Description", user);
         task.setId(1L);
@@ -75,7 +75,7 @@ class TaskServiceTest {
 
     @Test
     void startTask_shouldThrow_whenTaskNotAssigned() {
-        task.setAssignedUser(new User("other"));
+        task.setAssignedUser(new User("other", "test"));
         task.getAssignedUser().setId(2L);
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
 

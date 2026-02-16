@@ -19,7 +19,7 @@ class UserRepositoryTest {
 
     @Test
     void save_shouldPersistUser() {
-        User user = new User("testuser");
+        User user = new User("testuser","ouioui");
         User saved = userRepository.save(user);
 
         assertThat(saved.getId()).isNotNull();
@@ -28,7 +28,7 @@ class UserRepositoryTest {
 
     @Test
     void findByUsername_shouldReturnUser_whenExists() {
-        User user = userRepository.save(new User("findme"));
+        User user = userRepository.save(new User("findme","nonono"));
 
         User found = userRepository.findByUsername("findme");
 
@@ -45,7 +45,7 @@ class UserRepositoryTest {
 
     @Test
     void findById_shouldReturnUser_whenExists() {
-        User saved = userRepository.save(new User("findbyid"));
+        User saved = userRepository.save(new User("findbyid","trop de mdp"));
 
         Optional<User> found = userRepository.findById(saved.getId());
 
@@ -55,7 +55,7 @@ class UserRepositoryTest {
 
     @Test
     void existsById_shouldReturnTrue_whenExists() {
-        User saved = userRepository.save(new User("exists"));
+        User saved = userRepository.save(new User("exists","jsp"));
 
         boolean exists = userRepository.existsById(saved.getId());
 
@@ -71,9 +71,9 @@ class UserRepositoryTest {
 
     @Test
     void save_shouldPersistUserWithManager() {
-        User manager = userRepository.save(new User("manager"));
+        User manager = userRepository.save(new User("manager","c'est bon la "));
 
-        User subordinate = new User("sub");
+        User subordinate = new User("sub", "encore");
         subordinate.setManager(manager);
         User saved = userRepository.save(subordinate);
 
@@ -82,7 +82,7 @@ class UserRepositoryTest {
     }
     @Test
     void save_shouldPersistUserWithoutManager() {
-        User manager = userRepository.save(new User("manager"));
+        User manager = userRepository.save(new User("manager","tjrs plus"));
 
 
         assertThat(manager.getId()).isNotNull();
@@ -90,7 +90,7 @@ class UserRepositoryTest {
 
     @Test
     void selfReference_shouldAllowUserAsOwnManager() {
-        User user = new User("selfmanager");
+        User user = new User("selfmanager","ca n'en finis plus");
         user.setManager(user);  // Auto-référence
         User saved = userRepository.save(user);
 

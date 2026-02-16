@@ -35,8 +35,8 @@ class TaskServiceIntegrationTest {
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
-        user1 = userRepository.save(new User("user1"));
-        user2 = userRepository.save(new User("user2"));
+        user1 = userRepository.save(new User("user1","password1"));
+        user2 = userRepository.save(new User("user2","password2"));
 
         // Créer des tâches (IDs générés automatiquement)
         task1 = taskService.createTask("Task 1", "Desc 1", user1.getId(), user1.getId());
@@ -101,7 +101,7 @@ class TaskServiceIntegrationTest {
     @Test
     void finishTask_shouldSendMailToManager_whenManagerExists() {
         // Set manager pour user1
-        User manager = userRepository.save(new User("manager"));
+        User manager = userRepository.save(new User("manager","manager1"));
         user1.setManager(manager);
         userRepository.save(user1);
 

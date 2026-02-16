@@ -36,7 +36,7 @@ class TaskControllerTest {
     @BeforeEach
     void setUp() {
         // Créer un utilisateur de test en DB
-        User user = new User("testuser");
+        User user = new User("testuser", "mdp1");
         userRepository.save(user);
         userId = user.getId();
         // Set current user for auth
