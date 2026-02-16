@@ -13,7 +13,7 @@ public class User {
     private String password;
 
     private String username;
-    private List<String> list;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,6 +24,7 @@ public class User {
 
     public User(String username, String password) {
         this.username = username;
+        this.password = password;
     }
 
     // Getters and setters

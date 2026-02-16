@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +34,12 @@ class TaskControllerTest {
 
     private Long userId;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @BeforeEach
     void setUp() {
         // Créer un utilisateur de test en DB
-        User user = new User("testuser", "mdp1");
+        User user = new User("testuser", passwordEncoder.encode("pwd"));
         userRepository.save(user);
         userId = user.getId();
         // Set current user for auth
@@ -45,7 +48,8 @@ class TaskControllerTest {
 
     @Test
     void getAllTasks_shouldReturnEmptyList_initially() throws Exception {
-        mockMvc.perform(get("/tasks"))
+
+        mockMvc.perform(get("/tasks").header("Authorization", "Basic dGVzdHVzZXI6cHdk"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
